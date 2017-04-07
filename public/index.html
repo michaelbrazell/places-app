@@ -2,9 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="app"></div>
+    <a href="#" class="button">Click Me</a>
+    <script>
+      $('.button').click(function(e){
+        e.preventDefault();
+        $.get('http://localhost:3000/data', {}, function(data){
+            console.log(data)
+        });
+      });
+    </script>
     <script src="bundle.js"></script>
   </body>
 </html>

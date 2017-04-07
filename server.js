@@ -30,17 +30,31 @@ app.listen(PORT, function() {
   console.log('Express server running on port ' + PORT);
 });
 
-// Grab a place
-googleMapsClient.placesNearby({
-  language: 'en',
-  location: [42.262593,-71.802293],
-  rankby: 'distance',
-  minprice: 1,
-  maxprice: 4,
-  opennow: true,
-  type: 'restaurant'
-}, function(err, response) {
-  if (!err) {
-    console.log(response.json.results);
-  }
+function getRestaurants() {
+  var data;
+  googleMapsClient.placesNearby({
+    language: 'en',
+    location: [42.262593,-71.802293],
+    rankby: 'distance',
+    minprice: 1,
+    maxprice: 4,
+    opennow: true,
+    type: 'restaurant'
+    }, function(err, response) {
+      if (!err) {
+        console.log(response.json.results)
+        data = response;
+      }
+    });
+  return data;
+} 
+
+// Log something to console from get
+app.get('/data', function(req, res){
+  res.send(getRestaurants());
 });
+
+// Create API for displaying Data
+
+// Grab a place
+
