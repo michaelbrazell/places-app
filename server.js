@@ -30,8 +30,11 @@ app.listen(PORT, function() {
   console.log('Express server running on port ' + PORT);
 });
 
+
+// Define global data variable
+var data;
+
 function getRestaurants() {
-  var data;
   googleMapsClient.placesNearby({
     language: 'en',
     location: [42.262593,-71.802293],
@@ -42,19 +45,15 @@ function getRestaurants() {
     type: 'restaurant'
     }, function(err, response) {
       if (!err) {
-        console.log(response.json.results)
-        data = response;
+        // Update data variable with json data
+        data = response.json.results;
       }
     });
+  // Send Data variable up to function
   return data;
-} 
+}
 
-// Log something to console from get
+// Send client data
 app.get('/data', function(req, res){
   res.send(getRestaurants());
 });
-
-// Create API for displaying Data
-
-// Grab a place
-
