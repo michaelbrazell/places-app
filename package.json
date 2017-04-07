@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate",
+  "name": "PlacesReact",
   "version": "2.0.0",
-  "description": "Simple react app",
+  "description": "Simple React App using Google Places web server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
