@@ -1,4 +1,5 @@
 var React = require('react');
+var Restaurants = require('Restaurants');
 
 var Main = (props) => {
   return (
@@ -6,7 +7,7 @@ var Main = (props) => {
       <div className="row">
         <div className="columns medium-6 large-4 small-centered">
           <p>Main.jsx Rendered</p>
-          
+          <Restaurants />
         </div>
       </div>
     </div>
