@@ -18,16 +18,20 @@ const Restaurants = React.createClass({
     axios.get(requestUrl)
     .then(function(response){
       that.setState({
-        restaurants: response
+        restaurants: response.data
       })
     })
   },
   render: function () {
-    console.log(this.state.restaurants);
+    let restaurants = this.state.restaurants.map(function(restaurant, i) {
+      return (
+        <li key={i}><strong>{restaurant.name}</strong>, Rating: {restaurant.rating} </li>
+      )
+    })
     return (
-      <div className="restaurant-list">
-        <h1>This will be a list of restaurants</h1>  
-      </div>
+      <span>
+        {restaurants}
+      </span>
     )
   }
 });

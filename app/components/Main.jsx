@@ -7,7 +7,9 @@ var Main = (props) => {
       <div className="row">
         <div className="columns medium-6 large-4 small-centered">
           <p>Main.jsx Rendered</p>
-          <Restaurants />
+          <ul>
+            <Restaurants />
+          </ul>
         </div>
       </div>
     </div>
