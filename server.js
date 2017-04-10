@@ -37,6 +37,8 @@ function getRestaurants(latitude, longitude, radiusInput, typeInput) {
     }, function(err, response) {
       if (!err) {
         data = response.json.results;
+      } else {
+        console.log(err);
       }
     });
   // Send Data variable up to function
