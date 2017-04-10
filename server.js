@@ -34,18 +34,14 @@ app.listen(PORT, function() {
 // Define global data variable
 var data;
 
-function getRestaurants() {
-  googleMapsClient.placesNearby({
+function getRestaurants(locationInput, radiusInput, typeInput) {
+  googleMapsClient.placesRadar({
     language: 'en',
-    location: [42.262593,-71.802293],
-    rankby: 'distance',
-    minprice: 1,
-    maxprice: 4,
-    opennow: true,
-    type: 'restaurant'
+    location: locationInput,
+    radius: radiusInput,
+    type: typeInput,
     }, function(err, response) {
       if (!err) {
-        // Update data variable with json data
         data = response.json.results;
       }
     });
@@ -55,5 +51,5 @@ function getRestaurants() {
 
 // Send client data
 app.get('/data', function(req, res){
-  res.send(getRestaurants());
+  res.send(getRestaurants([42.262593,-71.802293], 8046.72, 'restaurant'));
 });
