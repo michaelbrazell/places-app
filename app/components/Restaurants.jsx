@@ -1,7 +1,7 @@
 var React = require('react');
 var axios = require('axios');
 
-const GET_RESTAURANTS = 'http://localhost:3000/data';
+const GET_RESTAURANTS = 'http://localhost:3000/api/v1/data';
 
 const Restaurants = React.createClass({
   getInitialState: function () {
@@ -11,7 +11,7 @@ const Restaurants = React.createClass({
   },
   componentDidMount: function () {
     var that = this;
-    var requestUrl = `${GET_RESTAURANTS}`;
+    var requestUrl = `${GET_RESTAURANTS}?location=`;
     this.setState({
       restaurants:[]
     });
@@ -30,7 +30,7 @@ const Restaurants = React.createClass({
             <div className="panel-heading">
               <h5>{restaurant.name} <span className={restaurant.rating >= 4 ? 'label label-success' : 'label label-warning'}>{restaurant.rating}</span></h5>
             </div>
-            <div className="panel-body"><address>{restaurant.formatted_address}</address></div>
+            <div className="panel-body"><address>{restaurant.vicinity}</address></div>
           </div>
          </div>
       )

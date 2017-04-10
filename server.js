@@ -25,19 +25,13 @@ app.use(function (req, res, next) {
 // Call which folder to use, express starts static server, serving the directory "public"
 app.use(express.static('public'));
 
-// Runs on port 3000
-app.listen(PORT, function() {
-  console.log('Express server running on port ' + PORT);
-});
-
-
 // Define global data variable
 var data;
 
-function getRestaurants(locationInput, radiusInput, typeInput) {
-  googleMapsClient.placesRadar({
+function getRestaurants(latitude, longitude, radiusInput, typeInput) {
+  googleMapsClient.placesNearby({
     language: 'en',
-    location: locationInput,
+    location: [latitude, longitude],
     radius: radiusInput,
     type: typeInput,
     }, function(err, response) {
@@ -50,6 +44,12 @@ function getRestaurants(locationInput, radiusInput, typeInput) {
 }
 
 // Send client data
-app.get('/data', function(req, res){
-  res.send(getRestaurants([42.262593,-71.802293], 8046.72, 'restaurant'));
+app.get('/api/v1/data', function(req, res){
+  // Worcester is 42.262593,-71.802293; rad = 8046.72 == 5mi
+  res.send(getRestaurants(req.query.lat, req.query.lng, 8046.72, 'restaurant'));
+});
+
+// Runs on port 3000
+app.listen(PORT, function() {
+  console.log('Express server running on port ' + PORT);
 });
