@@ -10,30 +10,31 @@ var googleMapsClient = require('@google/maps').createClient({
 var app = express();
 const PORT = process.env.PORT  || 3000;
 
-/*
-  OpenWeatherMap doesnt' work on HTTPS so we have to Redirect HTTP traffic
-  This is express middleware, expecting a request, response, and next
-*/
-app.use(function (req, res, next) {
-  if (req.headers['x-forwarded-proto'] === 'https') {
-    res.redirect('http://' + req.hostname + req.url);
-  } else {
-    next();
-  }
-})
+// /*
+//   OpenWeatherMap doesnt' work on HTTPS so we have to Redirect HTTP traffic
+//   This is express middleware, expecting a request, response, and next
+// */
+// app.use(function (req, res, next) {
+//   if (req.headers['x-forwarded-proto'] === 'https') {
+//     res.redirect('http://' + req.hostname + req.url);
+//   } else {
+//     next();
+//   }
+// })
 
 // Call which folder to use, express starts static server, serving the directory "public"
 app.use(express.static('public'));
 
 // Define global data variable
 var data;
+var addressData
 
 function getRestaurants(latitude, longitude, radiusInput, typeInput) {
   googleMapsClient.placesNearby({
     language: 'en',
     location: [latitude, longitude],
     radius: radiusInput,
-    type: typeInput,
+    type: typeInput
     }, function(err, response) {
       if (!err) {
         console.log('New API call at ' + latitude + ' ' + longitude)
@@ -46,11 +47,31 @@ function getRestaurants(latitude, longitude, radiusInput, typeInput) {
   return data;
 }
 
-// Send client data
+function getAddress(location) {
+  googleMapsClient.geocode({
+    address: location
+    }, function(err, response) {
+      if (!err) {
+        console.log('New lookup for ' + location)
+        addressData = response.json.results;
+      } else {
+        console.log(err);
+      }
+  });
+  return addressData
+} 
+  
+
+// Lookup restaurant/places data
 app.get('/api/v1/data', function(req, res){
   // Worcester is 42.262593,-71.802293; rad = 8046.72 == 5mi
   res.send(getRestaurants(req.query.lat, req.query.lng, 8046.72, 'restaurant'));
 });
+
+// Lookup Address data
+app.get('/api/v1/address', function(req, res) {
+  res.send(getAddress(req.query.location));
+})
 
 // Runs on port 3000
 app.listen(PORT, function() {
