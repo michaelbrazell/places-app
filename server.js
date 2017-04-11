@@ -36,6 +36,7 @@ function getRestaurants(latitude, longitude, radiusInput, typeInput) {
     type: typeInput,
     }, function(err, response) {
       if (!err) {
+        console.log('New API call at ' + latitude + ' ' + longitude)
         data = response.json.results;
       } else {
         console.log(err);

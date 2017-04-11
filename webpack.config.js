@@ -26,6 +26,7 @@ module.exports = {
       Restaurants: 'app/components/Restaurants.jsx',
       Restaurant: 'app/components/Restaurant.jsx',
       Search: 'app/components/Search.jsx',
+      getLocalData: 'app/api/getLocalData.jsx',
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ['', '.js', '.jsx']
