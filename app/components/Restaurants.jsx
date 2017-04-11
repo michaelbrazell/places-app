@@ -8,6 +8,7 @@ const Restaurants = React.createClass({
   getInitialState: function () {
     return {
       restaurants: [],
+      // Probably don't need
       latitude: '42.262593',
       longitude: '-71.802293'
     }
