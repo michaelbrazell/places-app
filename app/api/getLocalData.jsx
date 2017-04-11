@@ -1,6 +1,6 @@
 var axios = require('axios');
 
-const GET_RESTAURANTS = 'http://localhost:3000/api/v1/data';
+const GET_RESTAURANTS = '/api/v1/data';
 
 module.exports = {
   getData: function (latitude, longitude) {
