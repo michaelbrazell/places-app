@@ -11,7 +11,6 @@ module.exports = {
       } else {
         console.log('Some error happened at the API level');
       }
-    })
-    
+    }) 
   }
 }
