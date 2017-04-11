@@ -5,6 +5,16 @@ module.exports = {
     'script!jquery/dist/jquery.min.js',
     './app/app.jsx'
   ],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.DedupePlugin(), //dedupe similar code
+    new webpack.optimize.UglifyJsPlugin(), //minify everything
+    new webpack.optimize.AggressiveMergingPlugin()//Merge chunks
+  ],
   externals: {
     jquery: `jQuery`
   },
@@ -42,6 +52,6 @@ module.exports = {
         exclude: /(node_modules|bower_components)/
       }
     ]
-  },
-  devtool: 'inline-source-map'
+  }
+  // devtool: 'inline-source-map'
 };
